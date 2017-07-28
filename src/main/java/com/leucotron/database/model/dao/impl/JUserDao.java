@@ -16,36 +16,24 @@ import java.util.List;
 public class JUserDao extends AGenericDao<JUser> implements IGenericDao<JUser> {
 
     @Override
-    public void create(JUser object) {
+    public void create(JUser user) {
 
         String sql = "INSERT INTO tb_user(name) VALUES ('Marcelo')";
         executeUpdate(sql);
     }
 
     @Override
-    public JUser read(JUser object) {
+    public JUser read(JUser user) {
 
-        String sql = "SELECT * FROM tb_user WHERE id = 64862";
-        List<JUser> listUser = query(sql, JUser.class);
-
-
-        for (JUser jUser : listUser) {
-            
-            System.out.println(jUser.getId());
-            System.out.println(jUser.getName());
-            
-        }
-        
- 
-
-
-        
         return null;
     }
 
     @Override
-    public List<JUser> readAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<JUser> readAll(JUser user) {
+        
+        String sql = "SELECT * FROM tb_user";
+        return query(sql, JUser.class);
+
     }
 
     @Override
@@ -57,4 +45,5 @@ public class JUserDao extends AGenericDao<JUser> implements IGenericDao<JUser> {
     public void delete(JUser object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

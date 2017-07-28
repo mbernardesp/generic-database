@@ -12,7 +12,7 @@ public interface IGenericDao<T> {
 
     public T read(T object);
 
-    public List<T> readAll();
+    public List<T> readAll(T object);
 
     public T update(T object);
 
