@@ -23,9 +23,15 @@ public class JMain {
         
         JUserDao userDao = new JUserDao();
         
-        for (int i = 0; i < 100000; i++) {
-            userDao.create(new JUser());            
-        }
+        System.out.println(userDao.read(new JUser()));
+        
+        
+//        for (int i = 0; i < 100000; i++) {
+//            userDao.create(new JUser());
+//            
+//            
+//            
+//        }
         
         
         

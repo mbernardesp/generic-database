@@ -7,33 +7,40 @@ package com.leucotron.database.model.dao.impl;
 
 import com.leucotron.database.model.dao.IGenericDao;
 import com.leucotron.database.model.dao.entity.JUser;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author marcelo
  */
-public class JUserDao extends AGenericDao implements IGenericDao<JUser>{
+public class JUserDao extends AGenericDao<JUser> implements IGenericDao<JUser> {
 
     @Override
     public void create(JUser object) {
-        
+
         String sql = "INSERT INTO tb_user(name) VALUES ('Marcelo')";
-        
-        try {
-            getStatement().execute(sql);
-        } catch (SQLException ex) {
-            Logger.getLogger(JUserDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        executeUpdate(sql);
     }
 
     @Override
     public JUser read(JUser object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        String sql = "SELECT * FROM tb_user WHERE id = 64862";
+        List<JUser> listUser = query(sql, JUser.class);
+
+
+        for (JUser jUser : listUser) {
+            
+            System.out.println(jUser.getId());
+            System.out.println(jUser.getName());
+            
+        }
+        
+ 
+
+
+        
+        return null;
     }
 
     @Override

@@ -7,6 +7,7 @@ package com.leucotron.database;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.apache.commons.dbcp2.BasicDataSource;
 
@@ -18,7 +19,6 @@ public class JDatabaseConnector {
 
     private static JDatabaseConnector instance = null;
     private BasicDataSource ds = null;
-    private Connection connection = null;
 
     public static JDatabaseConnector getInstance() {
         if (instance == null) {
@@ -37,17 +37,18 @@ public class JDatabaseConnector {
         ds.setUsername("postgres");
         ds.setPassword("master");
 
-        try {
-            connection = ds.getConnection();
-
-            if (connection != null) {
-                result = 1;
-            } else {
-                result = -1;
+        Connection connection = getConnection();
+        
+        if (connection != null) {
+            
+            result = 1;
+            
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(JDatabaseConnector.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(JDatabaseConnector.class.getName()).error(ex.getMessage());
-
+        } else {
             result = -1;
         }
 
@@ -69,6 +70,14 @@ public class JDatabaseConnector {
 
     public Connection getConnection() {
 
+        Connection connection = null;
+        
+        try {
+            connection = ds.getConnection();
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(JDatabaseConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return connection;
     }
 
